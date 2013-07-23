@@ -1,5 +1,5 @@
 ===================
-borda voting system
+Borda voting system
 ===================
 
 The Borda count is a single-winner election method in which voters rank
