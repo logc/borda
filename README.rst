@@ -10,3 +10,20 @@ been counted the candidate with the most points is the winner. Because it
 sometimes elects broadly acceptable candidates, rather than those preferred by
 the majority, the Borda count is often described as a consensus-based electoral
 system, rather than a majoritarian one.
+
+    >>> import borda.count
+    >>> single_winner = borda.count.Election()
+
+    >>> calisto = borda.count.Candidate('calisto')
+    >>> calvin = borda.count.Candidate('calvin')
+    >>> clark = borda.count.Candidate('clark')
+    >>> single_winner.set_candidates([calisto, calvin, clark])
+
+    >>> valentine = borda.count.Voter(single_winner)
+    >>> veronica = borda.count.Voter(single_winner)
+
+    >>> valentine.votes([clark, calisto, calvin])
+    >>> veronica.votes([clark, calvin, calisto])
+
+    >>> single_winner.get_winner() is clark
+    True
