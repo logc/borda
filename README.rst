@@ -14,9 +14,9 @@ system, rather than a majoritarian one.
     >>> import borda.count
     >>> single_winner = borda.count.Election()
 
-    >>> calisto = borda.count.Candidate('calisto')
-    >>> calvin = borda.count.Candidate('calvin')
-    >>> clark = borda.count.Candidate('clark')
+    >>> calisto = borda.count.Candidate()
+    >>> calvin = borda.count.Candidate()
+    >>> clark = borda.count.Candidate()
     >>> single_winner.set_candidates([calisto, calvin, clark])
 
     >>> valentine = borda.count.Voter(single_winner)

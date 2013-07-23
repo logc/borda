@@ -37,8 +37,4 @@ class Voter(object):
 class Candidate(object):
     """Candidate is a candidate to be a winner in a Borda voting"""
 
-    def __init__(self, name):
-        self.name = name
-
-    def name(self):
-        return self.name
+    pass
