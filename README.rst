@@ -12,18 +12,18 @@ the majority, the Borda count is often described as a consensus-based electoral
 system, rather than a majoritarian one.
 
     >>> import borda.count
-    >>> single_winner = borda.count.Election()
+    >>> who_is_superman = borda.count.Election()
 
     >>> calisto = borda.count.Candidate()
     >>> calvin = borda.count.Candidate()
     >>> clark = borda.count.Candidate()
-    >>> single_winner.set_candidates([calisto, calvin, clark])
+    >>> who_is_superman.set_candidates([calisto, calvin, clark])
 
-    >>> valentine = borda.count.Voter(single_winner)
-    >>> veronica = borda.count.Voter(single_winner)
+    >>> valentine = borda.count.Voter(who_is_superman)
+    >>> veronica = borda.count.Voter(who_is_superman)
 
     >>> valentine.votes([clark, calisto, calvin])
     >>> veronica.votes([clark, calvin, calisto])
 
-    >>> single_winner.get_winner() is clark
+    >>> who_is_superman.get_winner() is clark
     True
