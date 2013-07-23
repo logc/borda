@@ -1,2 +1,5 @@
-def run():
-	print "Borda server"
+# Borda server
+
+
+def main():
+    print "Borda server"
