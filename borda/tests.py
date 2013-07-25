@@ -10,4 +10,4 @@ import doctest
 
 def test_suite():
     """Return all doctests as a test suite, required by zope.testrunner"""
-    return doctest.DocFileSuite('../README.rst')
+    return doctest.DocFileSuite('../README.rst', 'server/README.rst')
