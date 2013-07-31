@@ -7,5 +7,5 @@ setup(name='borda',
           'requests'],
       entry_points={
           'console_scripts': [
-          'bordad=borda.server.main:run',
+          'bordad=borda.server.main:main',
           'borda=borda.client.main:run']})

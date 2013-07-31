@@ -9,7 +9,7 @@ This package holds a REST interface to the Borda voting system.
 Start a server
 
     >>> import threading, time
-    >>> thread = threading.Thread(target=borda.server.main.main)
+    >>> thread = threading.Thread(target=borda.server.main.main_debug)
     >>> thread.daemon = True
     >>> thread.start()
 

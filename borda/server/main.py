@@ -49,5 +49,8 @@ def vote():
             voter.votes(votes)
 
 
-def main():
+def main_debug():
     run(host='localhost', port=DEFAULT_PORT, debug=True)
+
+def main():
+    run(host='localhost', port=DEFAULT_PORT, debug=False)
