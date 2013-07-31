@@ -10,6 +10,8 @@ VOTERS = []
 
 @route('/election', method='GET')
 def get_election_result():
+    if ELECTION is None:
+        return "Sorry, no election defined"
     return ELECTION.get_winner().name
 
 
@@ -51,6 +53,7 @@ def vote():
 
 def main_debug():
     run(host='localhost', port=DEFAULT_PORT, debug=True)
+
 
 def main():
     run(host='localhost', port=DEFAULT_PORT, debug=False)
