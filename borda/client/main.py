@@ -7,11 +7,13 @@ def resource(path):
 
 
 def create_new_election():
+    """Create a new election on the server"""
     election = requests.post(resource('election'))
     return election.status_code == requests.codes.ok
 
 
 def add_candidate(name):
+    """Add a new candidate to the open election"""
     candidate = {'name': name}
     candidate_request = requests.put(
         resource('election'), data=candidate)
@@ -19,6 +21,7 @@ def add_candidate(name):
 
 
 def add_voter(name):
+    """Add a voter to the open election"""
     voter = {'name': name}
     voter_request = requests.post(
         resource('vote'), data=voter)
@@ -26,6 +29,7 @@ def add_voter(name):
 
 
 def voter_votes(name, votes):
+    """A named voter issues a sorted list of votes"""
     voter_votes = {
         'name': name,
         'votes': votes}
@@ -35,10 +39,12 @@ def voter_votes(name, votes):
 
 
 def get_election_winner():
+    """Get the winner of the open election"""
     winner = requests.get(resource('election'))
     print winner.text
     return winner.status_code == requests.codes.ok
 
 
 def run():
+    """Main entry point"""
     print "Borda client"
