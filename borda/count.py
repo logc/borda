@@ -8,6 +8,9 @@ class Election(object):
         self.candidates = candidates
         self.votes = {}
 
+    def add_candidate(self, candidate):
+        self.candidates.append(candidate)
+
     def get_winner(self):
         sorted_votes = sorted(self.votes.iteritems(),
                               key=operator.itemgetter(1),
@@ -16,7 +19,7 @@ class Election(object):
 
     def give_points(self, chosen, points):
         for candidate in self.candidates:
-            if candidate is chosen:
+            if candidate == chosen:
                 self.votes.setdefault(chosen, 0)
                 self.votes[chosen] += points
 
@@ -24,8 +27,9 @@ class Election(object):
 class Voter(object):
     """Voter is a participant in a Borda voting"""
 
-    def __init__(self, election):
+    def __init__(self, election, name):
         self.election = election
+        self.name = name
 
     def votes(self, candidates):
         total = len(candidates)
@@ -37,4 +41,13 @@ class Voter(object):
 class Candidate(object):
     """Candidate is a candidate to be a winner in a Borda voting"""
 
-    pass
+    def __init__(self, name):
+        self.name = name
+
+    def __eq__(self, other):
+        if type(other) is type(self):
+            return self.__dict__ == other.__dict__
+        return False
+
+    def __ne__(self, other):
+        return not self.__eq__(other)

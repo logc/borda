@@ -20,57 +20,58 @@ Start a server
 Create a new election
 
     >>> import requests
-    >>> election = requests.get(resource('new_election'))
-    >>> election.status_code
-    200
+    >>> election = requests.post(resource('election'))
+    >>> election.status_code == requests.codes.ok
+    True
 
 Add a candidate for the election
 
     >>> first_candidate = {'name': 'calisto'}
-    >>> first_candidate_request = requests.post(
-    ...     resource('add_candidate'), data=first_candidate)
-    >>> first_candidate_request.status_code
-    200
+    >>> first_candidate_request = requests.put(
+    ...     resource('election'), data=first_candidate)
+    >>> first_candidate_request.status_code == requests.codes.ok
+    True
 
 Add further candidates
 
     >>> further_candidate1 = {'name': 'calvin'}
-    >>> candidate_request1 = requests.post(
-    ...     resource('add_candidate'), data=further_candidate1)
-    >>> candidate_request1.status_code
-    200
+    >>> candidate_request1 = requests.put(
+    ...     resource('election'), data=further_candidate1)
+    >>> candidate_request1.status_code == requests.codes.ok
+    True
 
     >>> further_candidate2 = {'name': 'clark'}
-    >>> candidate_request2 = requests.post(
-    ...     resource('add_candidate'), data=further_candidate2)
-    >>> candidate_request2.status_code
-    200
+    >>> candidate_request2 = requests.put(
+    ...     resource('election'), data=further_candidate2)
+    >>> candidate_request2.status_code == requests.codes.ok
+    True
 
 Add a voter to the election
 
     >>> first_voter = {'name': 'valentine'}
     >>> first_voter_request = requests.post(
     ...     resource('add_voter'), data=first_voter)
-    >>> first_voter_request.status_code
-    200
+    >>> first_voter_request.status_code == requests.codes.ok
+    True
 
 Add further voters
 
     >>> further_voter = {'name': 'veronica'}
     >>> further_voter_request = requests.post(
     ...     resource('add_voter'), data=further_voter)
-    >>> further_voter_request.status_code
-    200
+    >>> further_voter_request.status_code == requests.codes.ok
+    True
 
 A voter votes
 
+    >>> import json
     >>> voter_votes = {
     ...     'name': 'valentine',
     ...     'votes': ['clark', 'calisto', 'calvin']}
     >>> voter_votes_request = requests.post(
     ...     resource('vote'), data=voter_votes)
-    >>> voter_votes_request.status_code
-    200
+    >>> voter_votes_request.status_code == requests.codes.ok
+    True
 
 Further votes
 
@@ -79,6 +80,8 @@ Further votes
     ...     'votes': ['clark', 'calvin', 'calisto']}
     >>> further_votes_request = requests.post(
     ...     resource('vote'), data=further_votes)
+    >>> further_votes_request.status_code == requests.codes.ok
+    True
 
 Get who is the winner of the election
 

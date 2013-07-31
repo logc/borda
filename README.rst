@@ -14,13 +14,14 @@ system, rather than a majoritarian one.
     >>> import borda.count
     >>> who_is_superman = borda.count.Election()
 
-    >>> calisto = borda.count.Candidate()
-    >>> calvin = borda.count.Candidate()
-    >>> clark = borda.count.Candidate()
-    >>> who_is_superman.set_candidates([calisto, calvin, clark])
+    >>> calisto = borda.count.Candidate('calisto')
+    >>> calvin = borda.count.Candidate('calvin')
+    >>> clark = borda.count.Candidate('clark')
+    >>> who_is_superman.set_candidates([calisto, calvin])
+    >>> who_is_superman.add_candidate(clark)
 
-    >>> valentine = borda.count.Voter(who_is_superman)
-    >>> veronica = borda.count.Voter(who_is_superman)
+    >>> valentine = borda.count.Voter(who_is_superman, 'valentine')
+    >>> veronica = borda.count.Voter(who_is_superman, 'veronica')
 
     >>> valentine.votes([clark, calisto, calvin])
     >>> veronica.votes([clark, calvin, calisto])
