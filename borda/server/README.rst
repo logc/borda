@@ -50,7 +50,7 @@ Add a voter to the election
 
     >>> first_voter = {'name': 'valentine'}
     >>> first_voter_request = requests.post(
-    ...     resource('add_voter'), data=first_voter)
+    ...     resource('vote'), data=first_voter)
     >>> first_voter_request.status_code == requests.codes.ok
     True
 
@@ -58,7 +58,7 @@ Add further voters
 
     >>> further_voter = {'name': 'veronica'}
     >>> further_voter_request = requests.post(
-    ...     resource('add_voter'), data=further_voter)
+    ...     resource('vote'), data=further_voter)
     >>> further_voter_request.status_code == requests.codes.ok
     True
 
@@ -68,7 +68,7 @@ A voter votes
     >>> voter_votes = {
     ...     'name': 'valentine',
     ...     'votes': ['clark', 'calisto', 'calvin']}
-    >>> voter_votes_request = requests.post(
+    >>> voter_votes_request = requests.put(
     ...     resource('vote'), data=voter_votes)
     >>> voter_votes_request.status_code == requests.codes.ok
     True
@@ -78,7 +78,7 @@ Further votes
     >>> further_votes = {
     ...     'name': 'veronica',
     ...     'votes': ['clark', 'calvin', 'calisto']}
-    >>> further_votes_request = requests.post(
+    >>> further_votes_request = requests.put(
     ...     resource('vote'), data=further_votes)
     >>> further_votes_request.status_code == requests.codes.ok
     True

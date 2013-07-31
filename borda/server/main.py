@@ -31,7 +31,7 @@ def add_candidate():
     ELECTION.add_candidate(candidate)
 
 
-@route('/add_voter', method='POST')
+@route('/vote', method='POST')
 def add_voter():
     global ELECTION
     name = request.POST.get('name')
@@ -39,7 +39,7 @@ def add_voter():
     VOTERS.append(voter)
 
 
-@route('/vote', method='POST')
+@route('/vote', method='PUT')
 def vote():
     name = request.POST.get('name')
     for voter in VOTERS:
