@@ -17,5 +17,22 @@ def add_candidate():
     del candidate
 
 
+@route('/add_voter', method='POST')
+def add_voter():
+    election = borda.count.Election()
+    voter = borda.count.Voter(election)
+    del voter
+
+
+@route('/vote', method='POST')
+def vote():
+    pass
+
+
+@route('/election')
+def election():
+    return 'clark'
+
+
 def main():
     run(host='localhost', port=DEFAULT_PORT, debug=True)
