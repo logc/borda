@@ -64,7 +64,6 @@ Add further voters
 
 A voter votes
 
-    >>> import json
     >>> voter_votes = {
     ...     'name': 'valentine',
     ...     'votes': ['clark', 'calisto', 'calvin']}

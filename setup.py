@@ -5,6 +5,8 @@ setup(name='borda',
       install_requires=[
           'bottle',
           'requests'],
+      extras_require={
+          'test': ['MiniMock']},
       entry_points={
           'console_scripts': [
           'bordad=borda.server.main:main',
