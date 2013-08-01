@@ -4,12 +4,12 @@ Borda voting server
 
 This package holds a REST interface to the Borda voting system.
 
-    >>> import borda.server.main
+    >>> import borda.server
 
 Start a server
 
     >>> import threading, time
-    >>> thread = threading.Thread(target=borda.server.main.main_debug)
+    >>> thread = threading.Thread(target=borda.server.main_debug)
     >>> thread.daemon = True
     >>> thread.start()
 

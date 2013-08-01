@@ -10,5 +10,5 @@ setup(name='borda',
           'test': ['MiniMock']},
       entry_points={
           'console_scripts': [
-          'bordad=borda.server.main:main',
+          'bordad=borda.server:main',
           'borda=borda.client:run']})

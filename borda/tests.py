@@ -12,6 +12,6 @@ def test_suite():
     """Return all doctests as a test suite, required by zope.testrunner"""
     return doctest.DocFileSuite(
         '../README.rst',
-        'server/README.rst',
+        'server.rst',
         'client.rst',
         optionflags=doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE)
