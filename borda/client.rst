@@ -20,28 +20,32 @@ Create a new election
     >>> requests.put.mock_returns = response_mock
     >>> requests.get.mock_returns = response_mock
 
-    >>> borda.client.create_new_election()
+    >>> args = Mock('argparse.Namespace')
+    >>> borda.client.create_new_election(args)
     Called requests.post('http://localhost:1031/election')
     True
 
 Add a candidate for the election
 
-    >>> borda.client.add_candidate('calisto')
+    >>> args.name = 'calisto'
+    >>> borda.client.add_candidate(args)
     Called requests.put('http://localhost:1031/election',
         data={'name': 'calisto'})
     True
 
 Add a voter to the election
 
-    >>> borda.client.add_voter('veronica')
+    >>> args.name = 'veronica'
+    >>> borda.client.add_voter(args)
     Called requests.post('http://localhost:1031/vote',
         data={'name': 'veronica'})
     True
 
 A voter votes
 
-    >>> borda.client.voter_votes(
-    ...     'veronica', ['clark', 'calisto', 'calvin'])
+    >>> args.name = 'veronica'
+    >>> args.votes = ['clark', 'calisto', 'calvin']
+    >>> borda.client.voter_votes(args)
     Called requests.put(
         'http://localhost:1031/vote',
         data={'votes': ['clark', 'calisto', 'calvin'], 'name': 'veronica'})
@@ -49,7 +53,7 @@ A voter votes
 
 Get who is the winner of the election
 
-    >>> borda.client.get_election_winner()
+    >>> borda.client.get_election_winner(args)
     Called requests.get('http://localhost:1031/election')
     clark
     True
