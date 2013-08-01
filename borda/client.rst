@@ -4,7 +4,7 @@ Borda voting client
 
 This package holds a client for the Borda voting server.
 
-    >>> import borda.client.main
+    >>> import borda.client
 
 Create a new election
 
@@ -20,27 +20,27 @@ Create a new election
     >>> requests.put.mock_returns = response_mock
     >>> requests.get.mock_returns = response_mock
 
-    >>> borda.client.main.create_new_election()
+    >>> borda.client.create_new_election()
     Called requests.post('http://localhost:1031/election')
     True
 
 Add a candidate for the election
 
-    >>> borda.client.main.add_candidate('calisto')
+    >>> borda.client.add_candidate('calisto')
     Called requests.put('http://localhost:1031/election',
         data={'name': 'calisto'})
     True
 
 Add a voter to the election
 
-    >>> borda.client.main.add_voter('veronica')
+    >>> borda.client.add_voter('veronica')
     Called requests.post('http://localhost:1031/vote',
         data={'name': 'veronica'})
     True
 
 A voter votes
 
-    >>> borda.client.main.voter_votes(
+    >>> borda.client.voter_votes(
     ...     'veronica', ['clark', 'calisto', 'calvin'])
     Called requests.put(
         'http://localhost:1031/vote',
@@ -49,7 +49,7 @@ A voter votes
 
 Get who is the winner of the election
 
-    >>> borda.client.main.get_election_winner()
+    >>> borda.client.get_election_winner()
     Called requests.get('http://localhost:1031/election')
     clark
     True

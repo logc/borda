@@ -2,6 +2,7 @@ from setuptools import setup
 
 setup(name='borda',
       version='0.0.1',
+      packages=['borda'],
       install_requires=[
           'bottle',
           'requests'],
@@ -10,4 +11,4 @@ setup(name='borda',
       entry_points={
           'console_scripts': [
           'bordad=borda.server.main:main',
-          'borda=borda.client.main:run']})
+          'borda=borda.client:run']})

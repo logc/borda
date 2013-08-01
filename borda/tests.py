@@ -13,5 +13,5 @@ def test_suite():
     return doctest.DocFileSuite(
         '../README.rst',
         'server/README.rst',
-        'client/README.rst',
+        'client.rst',
         optionflags=doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE)
