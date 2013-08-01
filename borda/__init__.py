@@ -1,1 +1,1 @@
-"""This package holds the following modules: count, tests"""
+"""This package holds the following modules: client, count, server, tests"""
