@@ -1,3 +1,5 @@
+"""This module holds all classes necessary to implement a Borda voting
+election"""
 import operator
 
 

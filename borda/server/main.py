@@ -1,3 +1,6 @@
+"""This module serves responses to requests on the Borda voting system. The
+requests typically create a new election, register new candidates and voters,
+issue votes for the election, and also retrieve the resulting winner."""
 from bottle import request, route, run
 
 import borda.count
@@ -30,14 +33,12 @@ def add_candidate():
     """Add a candidate to the open election"""
     name = request.POST.get('name')
     candidate = borda.count.Candidate(name)
-    global ELECTION
     ELECTION.add_candidate(candidate)
 
 
 @route('/vote', method='POST')
 def add_voter():
     """Add a voter to the open election"""
-    global ELECTION
     name = request.POST.get('name')
     voter = borda.count.Voter(ELECTION, name)
     VOTERS.append(voter)

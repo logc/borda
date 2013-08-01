@@ -1,7 +1,11 @@
+# pylint: disable=E1101
+"""This module sends requests to a Borda server in order to create an election,
+register candidates and voters, and issue votes on behalf of the voters."""
 import requests
 
 
 def resource(path):
+    """Append a path to an entrypoint to form a REST resource"""
     base_url = 'http://localhost:1031/'
     return base_url + path
 
@@ -30,11 +34,11 @@ def add_voter(name):
 
 def voter_votes(name, votes):
     """A named voter issues a sorted list of votes"""
-    voter_votes = {
+    voter = {
         'name': name,
         'votes': votes}
     voter_votes_request = requests.put(
-        resource('vote'), data=voter_votes)
+        resource('vote'), data=voter)
     return voter_votes_request.status_code == requests.codes.ok
 
 
