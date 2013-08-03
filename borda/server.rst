@@ -46,6 +46,13 @@ Add further candidates
     >>> candidate_request2.status_code == requests.codes.ok
     True
 
+List all candidates
+
+    >>> candidates = requests.get(
+    ...     resource('vote'))
+    >>> candidates.json()
+    [u'calisto', u'calvin', u'clark']
+
 Add a voter to the election
 
     >>> first_voter = {'name': 'valentine'}

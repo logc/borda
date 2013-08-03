@@ -1,6 +1,8 @@
 """This module serves responses to requests on the Borda voting system. The
 requests typically create a new election, register new candidates and voters,
 issue votes for the election, and also retrieve the resulting winner."""
+import json
+
 from bottle import request, route, run
 
 import borda.count
@@ -34,6 +36,12 @@ def add_candidate():
     name = request.POST.get('name')
     candidate = borda.count.Candidate(name)
     ELECTION.add_candidate(candidate)
+
+
+@route('/vote', method='GET')
+def list_candidates():
+    """List all candidates"""
+    return json.dumps([c.name for c in ELECTION.candidates])
 
 
 @route('/vote', method='POST')

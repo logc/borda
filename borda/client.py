@@ -2,6 +2,7 @@
 """This module sends requests to a Borda server in order to create an election,
 register candidates and voters, and issue votes on behalf of the voters."""
 import argparse
+import json
 import sys
 import logging
 
@@ -31,6 +32,20 @@ def add_candidate(args):
         candidate_request = requests.put(
             resource('election'), data=candidate)
         return candidate_request.status_code == requests.codes.ok
+    except requests.exceptions.ConnectionError as ex:
+        logging.error(ex.message)
+        return False
+
+
+def list_candidates(args):
+    """List all candidates"""
+    try:
+        candidates_request = requests.get(resource('vote'))
+        js = candidates_request.json()
+        candidates = json.loads(js)
+        for num, candidate in enumerate(candidates):
+            print "{0}: {1}".format(num + 1, candidate)
+        return candidates_request == requests.codes.ok
     except requests.exceptions.ConnectionError as ex:
         logging.error(ex.message)
         return False
@@ -105,4 +120,8 @@ def run():
     logging.basicConfig(
         level=logging.DEBUG,
         format='%(asctime)s %(levelname)s %(message)s')
-    sys.exit(args.func(args))
+    success = args.func(args)
+    if success:
+        sys.exit(0)
+    else:
+        sys.exit(1)

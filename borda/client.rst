@@ -33,6 +33,17 @@ Add a candidate for the election
         data={'name': 'calisto'})
     True
 
+List all candidates
+
+    >>> response_mock.json.mock_returns = '["calisto", "calvin", "clark"]'
+    >>> borda.client.list_candidates(args)
+    Called requests.get('http://localhost:1031/vote')
+    Called requests.Response.json()
+    1: calisto
+    2: calvin
+    3: clark
+    False
+
 Add a voter to the election
 
     >>> args.name = 'veronica'
