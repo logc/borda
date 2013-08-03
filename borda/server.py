@@ -2,8 +2,11 @@
 requests typically create a new election, register new candidates and voters,
 issue votes for the election, and also retrieve the resulting winner."""
 import json
+import os.path
+import shelve
+from contextlib import closing
 
-from bottle import request, route, run
+import bottle
 
 import borda.count
 
@@ -12,53 +15,56 @@ DEFAULT_PORT = 1031
 ELECTION = None
 VOTERS = []
 
+app = bottle.Bottle()
+db = shelve.open(
+    os.path.join(app.resources.base, 'shelve.db'), writeback=True)
 
-@route('/election', method='GET')
+
+@app.route('/election', method='GET')
 def get_election_result():
     """Get election result"""
-    if ELECTION is None:
+    if db['election'] is None:
         return "Sorry, no election defined"
-    return ELECTION.get_winner().name
+    return db['election'].get_winner().name
 
 
-@route('/election', method='POST')
+@app.route('/election', method='POST')
 def create_election():
     """Create a new election"""
     election = borda.count.Election()
     election.set_candidates([])
-    global ELECTION
-    ELECTION = election
+    db['election'] = election
 
 
-@route('/election', method='PUT')
+@app.route('/election', method='PUT')
 def add_candidate():
     """Add a candidate to the open election"""
-    name = request.POST.get('name')
+    name = bottle.request.POST.get('name')
     candidate = borda.count.Candidate(name)
-    ELECTION.add_candidate(candidate)
+    db['election'].add_candidate(candidate)
 
 
-@route('/vote', method='GET')
+@app.route('/vote', method='GET')
 def list_candidates():
     """List all candidates"""
-    return json.dumps([c.name for c in ELECTION.candidates])
+    return json.dumps([c.name for c in db['election'].candidates])
 
 
-@route('/vote', method='POST')
+@app.route('/vote', method='POST')
 def add_voter():
     """Add a voter to the open election"""
-    name = request.POST.get('name')
-    voter = borda.count.Voter(ELECTION, name)
-    VOTERS.append(voter)
+    name = bottle.request.POST.get('name')
+    voter = borda.count.Voter(db['election'], name)
+    db['voters'].append(voter)
 
 
-@route('/vote', method='PUT')
+@app.route('/vote', method='PUT')
 def vote():
     """Issue votes from a voter in the election"""
-    name = request.POST.get('name')
-    for voter in VOTERS:
+    name = bottle.request.POST.get('name')
+    for voter in db['voters']:
         if voter.name == name:
-            posted_votes = request.POST.getlist('votes')
+            posted_votes = bottle.request.POST.getlist('votes')
             votes = []
             for posted_vote in posted_votes:
                 votes.append(borda.count.Candidate(posted_vote))
@@ -67,9 +73,17 @@ def vote():
 
 def main_debug():
     """Test entry point"""
-    run(host='localhost', port=DEFAULT_PORT, debug=True)
+    run_app(True)
 
 
 def main():
     """Main entry point"""
-    run(host='localhost', port=DEFAULT_PORT, debug=False)
+    run_app(False)
+
+
+def run_app(do_debug=False):
+    """Run the web app, wheter with or without debugging"""
+    db.setdefault('election', None)
+    db.setdefault('voters', [])
+    with closing(db):
+        app.run(host='localhost', port=DEFAULT_PORT, debug=do_debug)
