@@ -11,4 +11,9 @@ setup(name='borda',
       entry_points={
           'console_scripts': [
           'bordad=borda.server:main',
-          'borda=borda.client:run']})
+          'borda=borda.client:run']},
+      classifiers=[
+          'Development Status :: 3 - Alpha',
+          'Framework :: Bottle',
+          'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+          'Topic :: Office/Business :: Groupware'])
